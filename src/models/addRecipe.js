@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 
 const ingredientsShema = new mongoose.Schema({
   ingredient: {
-    type: String,
+    type: [String],
     required: true
   },
   ingredientPortion: {
-    type: String,
+    type: [String],
     required: true
   },
   ingredientType: {
-    type: String,
+    type: [String],
     required: true
   }
 })

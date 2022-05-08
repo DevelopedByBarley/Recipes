@@ -15,7 +15,8 @@
     "express": "^4.18.1",
     "express-ejs-layouts": "^2.5.1",
     "mongoose": "^6.3.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "string-sanitizer": "^2.0.2"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",

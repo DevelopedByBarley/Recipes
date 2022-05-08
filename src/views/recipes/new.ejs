@@ -1,5 +1,5 @@
 <h1>Add recipe</h1>
-<form action="/new" method="POST">
+<form action="/recipes" method="POST">
   <div class="form-group">
     <label for="title">Recept név:</label><br>
     <input type="text" id="title" name="title"><br>
@@ -112,23 +112,28 @@
 
   <div class="form-group" id="ingredients">
     <h3>Hozzátevők:</h3>
-    <div class="ingredients-card">
-      <input type="text" id="ingredient" name="ingredient" value="">
-      <input type="text" id="ingredientPortion" name="ingredientPortion"> 
-      <select name="ingredientType" id="ingredientType">
-        <option value="Hús">Hús</option>
-        <option value="Ital">Ital</option>
-        <option value="Tejtermék">Tejtermék</option>
-        <option value="Gyümölcs">Gyümölcs</option>
-        <option value="Fúszer">Fúszer</option>
-        <option value="Fúszer">Egyéb</option>
-      </select>
-      <button id="deleteIngredient">Delete</button>
-      <button id="addIngredient">Add</button>
-    </div>
+    <template id="ingredientsTemplate">
+      <div class="ingredients-card">
+        <input type="text" id="ingredient" name="ingredient" value="">
+        <input type="text" id="ingredientPortion" name="ingredientPortion">
+        <select name="ingredientType" id="ingredientType">
+          <option value="Hús">Hús</option>
+          <option value="Ital">Ital</option>
+          <option value="Tejtermék">Tejtermék</option>
+          <option value="Gyümölcs">Gyümölcs</option>
+          <option value="Fúszer">Fúszer</option>
+          <option value="Fúszer">Egyéb</option>
+        </select>
+        <button id="deleteIngredient">Delete</button>
+        <button id="addIngredient">Add</button>
+      </div>
+    </template>
+    <h3>Adj hozzávalókat <span><button id="addIngredientsField">+</button></span></h3>
   </div>
 
-  <button type="submit"class="btn btn-info"id="sendRecipe">Submit</button>
+  <br><br><br>
+
+  <button type="submit" class="btn btn-info" id="sendRecipe">Submit</button>
 
   <!--
     <div class="form-group">

@@ -4,4 +4,10 @@
   padding: 0;
   margin: 0;
 }
+
+.card {
+  padding: 1rem;
+  display: inline-block;
+  width: 33%;
+}
 /*# sourceMappingURL=style.css.map */
