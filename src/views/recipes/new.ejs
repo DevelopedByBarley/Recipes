@@ -1,1 +1,148 @@
 <h1>Add recipe</h1>
+<form action="/new" method="POST">
+  <div class="form-group">
+    <label for="title">Recept név:</label><br>
+    <input type="text" id="title" name="title"><br>
+    <label for="portion">Adag/Fő</label><br>
+    <input type="number" id="portion" name="portion">
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <h3>Költség:</h3>
+    <br>
+    <label for="cheap">Olcsó</label>
+    <input type="radio" id="cheap" name="cost" value="Olcsó">
+    <br>
+    <label for="average">Átlagos</label>
+    <input type="radio" id="average" name="cost" value="average">
+    <br>
+    <label for="expensive">Drága</label>
+    <input type="radio" id="expensive" name="cost" value="Drága">
+    <br>
+    <label for="extraExpensive">Nagyon Drága</label>
+    <input type="radio" id="extraExpensive" name="cost" value="Nagyon Drága">
+
+    <br><br>
+
+    <div class="form-group">
+      <h3>Nehézség:</h3>
+
+      <br>
+
+      <label for="cheap">Könnyű</label>
+      <input type="radio" id="low" name="difficulty" value="Könnyű">
+      <br>
+      <label for="average">Átlagos</label>
+      <input type="radio" id="medium" name="difficulty" value="Átlagos">
+      <br>
+      <label for="expensive">Nehéz</label>
+      <input type="radio" id="hard" name="difficulty" value="Nehéz">
+      <br>
+      <label for="extraExpensive">Nagyon nehéz</label>
+      <input type="radio" id="extraHard" name="difficulty" value="Nagyon nehéz">
+    </div>
+
+    <br><br>
+    <hr>
+
+    <label for="preparationTime">Elkészitési idő</label>
+    <select name="preparationTime" id="preparationTime">
+      <option value="5">5 perc</option>
+      <option value="10">10 perc</option>
+      <option value="15">15 perc</option>
+      <option value="20">20 perc</option>
+      <option value="25">25 perc</option>
+      <option value="30">30 perc</option>
+      <option value="40">40 perc</option>
+      <option value="45">45 perc</option>
+      <option value="60">60 perc</option>
+    </select>
+
+    <br><br>
+
+    <label for="cookingTime">Elkészitési idő</label>
+    <select name="cookingTime" id="cookingTime">
+      <option value="5">5 perc</option>
+      <option value="10">10 perc</option>
+      <option value="15">15 perc</option>
+      <option value="20">20 perc</option>
+      <option value="25">25 perc</option>
+      <option value="30">30 perc</option>
+      <option value="40">40 perc</option>
+      <option value="45">45 perc</option>
+      <option value="60">60 perc</option>
+      <option value="90">90 perc</option>
+      <option value="120">120 perc</option>
+      <option value="150">150 perc</option>
+    </select>
+
+
+    <br><br>
+
+    <label for="totalTime">Elkészitési idő</label>
+    <select name="totalTime" id="totalTime">
+      <option value="5">5 perc</option>
+      <option value="10">10 perc</option>
+      <option value="15">15 perc</option>
+      <option value="20">20 perc</option>
+      <option value="25">25 perc</option>
+      <option value="30">30 perc</option>
+      <option value="40">40 perc</option>
+      <option value="45">45 perc</option>
+      <option value="60">60 perc</option>
+      <option value="90">90 perc</option>
+      <option value="120">120 perc</option>
+      <option value="150">150 perc</option>
+      <option value="155">155 perc</option>
+      <option value="160">160 perc</option>
+      <option value="165">165 perc</option>
+      <option value="170">170 perc</option>
+      <option value="175">175 perc</option>
+      <option value="180">180 perc</option>
+      <option value="185">185 perc</option>
+      <option value="190">190 perc</option>
+      <option value="195">195 perc</option>
+      <option value="200">200 perc</option>
+      <option value="205">205 perc</option>
+      <option value="210">210 perc</option>
+    </select>
+  </div>
+
+  <div class="form-group" id="ingredients">
+    <h3>Hozzátevők:</h3>
+    <div class="ingredients-card">
+      <input type="text" id="ingredient" name="ingredient" value="">
+      <input type="text" id="ingredientPortion" name="ingredientPortion"> 
+      <select name="ingredientType" id="ingredientType">
+        <option value="Hús">Hús</option>
+        <option value="Ital">Ital</option>
+        <option value="Tejtermék">Tejtermék</option>
+        <option value="Gyümölcs">Gyümölcs</option>
+        <option value="Fúszer">Fúszer</option>
+        <option value="Fúszer">Egyéb</option>
+      </select>
+      <button id="deleteIngredient">Delete</button>
+      <button id="addIngredient">Add</button>
+    </div>
+  </div>
+
+  <button type="submit"class="btn btn-info"id="sendRecipe">Submit</button>
+
+  <!--
+    <div class="form-group">
+    <h3>Lépések:</h3>
+    <input type="text" id="steps" name="steps" value="">
+    <input type="number" id="duration" name="duration"> 
+    <select name="ingredientType" id="ingredientType">
+      <option value="Hús">Hús</option>
+      <option value="Ital">Ital</option>
+      <option value="Tejtermék">Tejtermék</option>
+      <option value="Gyümölcs">Gyümölcs</option>
+      <option value="Fúszer">Fúszer</option>
+      <option value="Fúszer">Egyéb</option>
+    </select>
+  </div>
+  -->
+</form>
