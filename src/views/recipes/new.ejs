@@ -1,5 +1,5 @@
 <h1>Add recipe</h1>
-<form action="/recipes" method="POST">
+<form id="recipesForm">
   <div class="form-group">
     <label for="title">Recept név:</label><br>
     <input type="text" id="title" name="title"><br>
@@ -112,34 +112,45 @@
 
   <div class="form-group" id="ingredients">
     <h3>Hozzátevők:</h3>
-    <template id="ingredientsTemplate">
-      <div class="ingredients-card">
-        <input type="text" id="ingredient" name="ingredient" value="">
-        <input type="text" id="ingredientPortion" name="ingredientPortion">
-        <select name="ingredientType" id="ingredientType">
-          <option value="Hús">Hús</option>
-          <option value="Ital">Ital</option>
-          <option value="Tejtermék">Tejtermék</option>
-          <option value="Gyümölcs">Gyümölcs</option>
-          <option value="Fúszer">Fúszer</option>
-          <option value="Fúszer">Egyéb</option>
-        </select>
-        <button id="deleteIngredient">Delete</button>
-        <button id="addIngredient">Add</button>
-      </div>
-    </template>
-    <h3>Adj hozzávalókat <span><button id="addIngredientsField">+</button></span></h3>
+    <h3>Adj hozzávalókat <span><button id="addIngredients">+</button></span></h3>
+    <div class="ingredients-card">
+      <input type="text" id="ingredient" name="ingredient" value="">
+      <input type="text" id="ingredientPortion" name="ingredientPortion">
+      <select name="ingredientType" id="ingredientType">
+        <option value="Hús">Hús</option>
+        <option value="Ital">Ital</option>
+        <option value="Tejtermék">Tejtermék</option>
+        <option value="Gyümölcs">Gyümölcs</option>
+        <option value="Fúszer">Fúszer</option>
+        <option value="Fúszer">Egyéb</option>
+      </select>
+    </div>
   </div>
-
+  
   <br><br><br>
-
+  
   <button type="submit" class="btn btn-info" id="sendRecipe">Submit</button>
-
+  
   <!--
     <div class="form-group">
-    <h3>Lépések:</h3>
-    <input type="text" id="steps" name="steps" value="">
-    <input type="number" id="duration" name="duration"> 
+      <h3>Lépések:</h3>
+      <input type="text" id="steps" name="steps" value="">
+      <input type="number" id="duration" name="duration"> 
+      <select name="ingredientType" id="ingredientType">
+        <option value="Hús">Hús</option>
+        <option value="Ital">Ital</option>
+        <option value="Tejtermék">Tejtermék</option>
+        <option value="Gyümölcs">Gyümölcs</option>
+        <option value="Fúszer">Fúszer</option>
+      <option value="Fúszer">Egyéb</option>
+    </select>
+  </div>
+-->
+</form>
+<template id="ingredientsTemplate">
+  <div class="ingredients-card">
+    <input type="text" id="ingredient" name="ingredient" value="">
+    <input type="text" id="ingredientPortion" name="ingredientPortion">
     <select name="ingredientType" id="ingredientType">
       <option value="Hús">Hús</option>
       <option value="Ital">Ital</option>
@@ -149,5 +160,4 @@
       <option value="Fúszer">Egyéb</option>
     </select>
   </div>
-  -->
-</form>
+</template>

@@ -1,20 +1,5 @@
 const mongoose = require('mongoose');
 
-const ingredientsShema = new mongoose.Schema({
-  ingredient: {
-    type: [String],
-    required: true
-  },
-  ingredientPortion: {
-    type: [String],
-    required: true
-  },
-  ingredientType: {
-    type: [String],
-    required: true
-  }
-})
-
 const recipeSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -44,7 +29,10 @@ const recipeSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  ingredients: ingredientsShema, 
+  ingredients: {
+    type: Array,
+    required: true
+  }, 
   steps: {
     type: String,
     required: false,
