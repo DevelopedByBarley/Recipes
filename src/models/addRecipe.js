@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
@@ -32,7 +33,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: {
     type: Array,
     required: true
-  }, 
+  },
   steps: {
     type: String,
     required: false,
@@ -43,13 +44,14 @@ const recipeSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: false
+    required: true
   },
   uploadDate: {
     type: Date,
     default: () => Date.now()
   }
 })
+
 
 
 module.exports = mongoose.model('Recipes', recipeSchema);

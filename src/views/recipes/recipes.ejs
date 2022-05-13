@@ -1,16 +1,33 @@
-<% recipes.forEach(function(recipe) { %>
-  <div class="card">
-    <img class="card-img-top" src="https://i.imgur.com/27CbjD0.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= recipe.title %>
-      </h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <a href="#" class="btn btn-primary">Megtekintés</a>
-      <a href="#" class="btn btn-success">Szerkesztés</a>
-      <a href="#" class="btn btn-danger">Törlés</a>
+<div id="cards-container">
+  <% recipes.forEach(function(recipe) { %>
+    <div class="card">
+      <img height="100%" width="100%" src="/uploads/images/pexels-ella-olsson-1640777.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= recipe.title %>
+        </h5>
+        <p class="card-text">
+          <span class="card-info">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <%= recipe.cost %>
+          </span>
+          <span class="card-info">
+            <i class="fa-solid fa-dumbbell"></i>
+            <%= recipe.difficulty %>
+          </span>
+          <span class="card-info">
+            <i class="fa-solid fa-clock"></i>
+            <%= recipe.totalTime %> perc
+          </span>
+        </p>
+        <p>
+          <%= recipe.comment %>
+        </p>
+        <a href="#" class="btn btn-primary">Megtekintés</a>
+        <a href="#" class="btn btn-success">Szerkesztés</a>
+        <a href="#" class="btn btn-danger">Törlés</a>
+      </div>
     </div>
-  </div>
-  <%console.log(recipe.ingredients)%>
-  <% }); %>
+
+    <% }); %>
+</div>

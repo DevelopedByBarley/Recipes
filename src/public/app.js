@@ -1,10 +1,7 @@
 
 
 const recipesForm = document.getElementById('recipesForm');
-
 const addIngredient = document.querySelectorAll('.addIngredient')
-
-
 const title = document.getElementById('title');
 const portion = document.getElementById('portion');
 const cost = document.getElementsByName('cost');
@@ -12,33 +9,34 @@ const difficulty = document.getElementsByName('difficulty');
 const preparationTime = document.getElementById('preparationTime');
 const cookingTime = document.getElementById('cookingTime');
 const totalTime = document.getElementById('totalTime');
-
-
+const comment = document.getElementById('comment')
+const cover = document.querySelector('#cover');
 const addIngredients = document.getElementById('addIngredients');
 const ingredient = document.getElementById('ingredient');
 const ingredientPortion = document.getElementById('ingredientPortion');
 const ingredientType = document.getElementById('ingredientType');
+
 let ingredients = [];
 
+recipesForm.onsubmit = async (event) => {
+  event.preventDefault();
+  const costValue = getValueFromRadio(cost);
+  const difficultyValue = getValueFromRadio(difficulty);
 
-recipesForm.onsubmit  = async (event) => {
-
-  const cost = getCost();
-  const difficulty = getDifficulty();
-  console.log(ingredients)
+  let allergen = checkAllergen();
+  console.log(allergen)
 
   let body = {
     title: title.value,
     portion: portion.value,
-    cost: cost,
-    difficulty: difficulty,
+    cost: costValue,
+    difficulty: difficultyValue,
     preparationTime: preparationTime.value,
     cookingTime: cookingTime.value,
-    totalTime: totalTime.value,
-    ingredients: ingredients
-    
-  }
-  
+    totalTime: totalTime,
+    ingredients: ingredients,
+    comment: comment.value
+}
 
   try {
     const newRecipe = await fetch('/recipes', {
@@ -53,45 +51,71 @@ recipesForm.onsubmit  = async (event) => {
   } catch (error) {
     console.log(error)
   }
-  
 }
 
-function getCost() {
-  for (var i = 0, length = cost.length; i < length; i++) {
-    if (cost[i].checked) {
-      // do whatever you want with the checked radio
-      return cost[i].value;
-  
+function getValueFromRadio(radio) {
+  for (var i = 0, length = radio.length; i < length; i++) {
+    if (radio[i].checked) {
+      return radio[i].value;
+
       // only one radio can be logically checked, don't check the rest
       break;
     }
   }
 }
 
-function getDifficulty() {
-  for (var i = 0, length = difficulty.length; i < length; i++) {
-    if (difficulty[i].checked) {
-      // do whatever you want with the checked radio
-      return difficulty[i].value;
-  
-      // only one radio can be logically checked, don't check the rest
-      break;
-    }
-  }
-}
-
-addIngredients.onclick = (event)   => {
+addIngredients.onclick = (event) => {
+  console.log(ingredients);
   event.preventDefault();
   const newIngredients = {
-    ingredient: ingredient.value,
-    ingredientPortion: ingredientPortion.value,
+    ingredientName: ingredient.value,
+    ingredientPortion: Number(ingredientPortion.value),
     ingredientType: ingredientType.value
   }
 
-  const template = document.getElementById('ingredientsTemplate');
-  var clon = template.content.cloneNode(true);
-  document.getElementById('ingredients').appendChild(clon)
+  ingredient.value = ''
+  ingredientPortion.value = ''
 
   ingredients.push(newIngredients)
-  console.log(ingredients)
+
+  renderIngredients();
+}
+
+function renderIngredients() {
+  let temp = ``
+
+  ingredients.forEach((ingredient, index) => {
+    temp += `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${ingredient.ingredientName}</td>
+      <td>${ingredient.ingredientPortion}/g</td>
+      <td >${ingredient.ingredientType}</th>
+      <td>
+        <button class="deleteBtn btn-danger btn" data-id="${index}">Törlés</button>
+        <button class="editBtn btn-info btn" data-id="${index}">Szerkeszt</button>
+      </td>
+    </tr>
+    `
+  })
+
+  document.getElementById('ingredientsTemplate').innerHTML = temp;
+  document.querySelectorAll('.deleteBtn').forEach((btn) => {
+    btn.addEventListener('click', deleteIngredients)
+  })
+}
+
+function deleteIngredients(event) {
+  event.preventDefault();
+  let id = Number(event.target.dataset.id);
+  ingredients.splice(id, 1)
+  renderIngredients()
+}
+
+function checkAllergen() {
+  for(let ingredient of ingredients ) {
+    if(ingredient.ingredientType === 'Tejtermék') {
+      return 'Laktózos'
+    }
+  }
 }

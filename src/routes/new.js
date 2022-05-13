@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/addRecipe')
 
-
-
 router.get('/', async (req, res) => {
   const recipes = await Recipe.find({});
   console.log(recipes)
@@ -14,7 +12,9 @@ router.get('/new', (req, res) => {
   res.render('recipes/new.ejs')
 })
 
-router.post('/', async (req, res) => {
+router.post('/',async (req, res) => {
+  fileName = req.body.cover
+  console.log(fileName)
   try {
     const recipe = await new Recipe({
       title: req.body.title,
@@ -23,8 +23,10 @@ router.post('/', async (req, res) => {
       difficulty: req.body.difficulty,
       preparationTime: Number(req.body.preparationTime),
       cookingTime: Number(req.body.cookingTime),
-      totalTime: Number(req.body.totalTime),
-      ingredients: req.body.ingredients
+      totalTime: Number(req.body.preparationTime) + Number(req.body.cookingTime),
+      ingredients: req.body.ingredients,
+      comment: req.body.comment,
+      coverImageName: fileName
     })
     await recipe.save();
     console.log(req.body.ingredients);
@@ -32,10 +34,6 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-
-
-
 })
 
 module.exports = router;
