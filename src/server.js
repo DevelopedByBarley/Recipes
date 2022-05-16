@@ -28,7 +28,7 @@ app.use('/new', recipesRouter)
 
 //Database
 
-mongoose.connect(`mongodb://localhost/${process.env.SERVER_NAME}`)
+mongoose.connect(`${process.env.SERVER_NAME}`)
 const db = mongoose.connection
 db.on('error', error => console.log(error))
 db.once('open', () => console.log(`Database is connected on port ${port}` ))
