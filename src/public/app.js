@@ -19,7 +19,6 @@ const ingredientType = document.getElementById('ingredientType');
 let ingredients = [];
 
 recipesForm.onsubmit = async (event) => {
-  event.preventDefault();
   const costValue = getValueFromRadio(cost);
   const difficultyValue = getValueFromRadio(difficulty);
 
@@ -64,19 +63,24 @@ function getValueFromRadio(radio) {
 let countOfId = 0;
 addIngredients.onclick = (event) => {
   event.preventDefault();
-  const newIngredients = {
-    id: countOfId++,
-    ingredientName: ingredient.value,
-    ingredientPortion: Number(ingredientPortion.value),
-    ingredientType: ingredientType.value
+  if(ingredient.value  && Number(ingredientPortion.value)) {
+    
+    const newIngredients = { 
+      id: countOfId++,
+      ingredientName: ingredient.value,
+      ingredientPortion: Number(ingredientPortion.value),
+      ingredientType: ingredientType.value
+    }
+  
+    ingredient.value = ''
+    ingredientPortion.value = ''
+  
+    ingredients.push(newIngredients)
+  
+    renderIngredients();
+  } else {
+    alert('Mindkét mező kitöltése kötelező!')
   }
-
-  ingredient.value = ''
-  ingredientPortion.value = ''
-
-  ingredients.push(newIngredients)
-
-  renderIngredients();
 }
 
 function renderIngredients() {

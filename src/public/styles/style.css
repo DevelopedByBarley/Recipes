@@ -1,5 +1,17 @@
-body {
-  margin: 2rem;
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#container {
+  width: 95%;
+  margin: 0 auto;
 }
 
 #inner-container #cards-container {
@@ -25,12 +37,5 @@ body {
         grid-template-rows: auto;
     grid-gap: 2%;
   }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,8 +1,18 @@
-$backgroundColor: green;
-
-body {
-  margin: 2rem;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+ul {
+  list-style-type: none;
+}
+
+#container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+
 
 // Card Styles
 #inner-container {
@@ -30,9 +40,3 @@ body {
   }
 }
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}

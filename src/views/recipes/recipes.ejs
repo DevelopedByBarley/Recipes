@@ -1,3 +1,8 @@
+<form action="/recipes" method="GET">
+  <h1>Keresés</h1>
+  <input type="text" name="title" value="<%=searchOptions.title%>">
+  <button type="submit" class="btn btn-dark">Keresés</button>
+</form>
 <div id="cards-container">
   <% recipes.forEach(function(recipe) { %>
     <div class="card">
@@ -23,7 +28,7 @@
         <p>
           <%= recipe.comment %>
         </p>
-        <a href="#" class="btn btn-primary checkRecipe">Megtekintés</a>
+        <a href="/recipes/recipe/<%=recipe._id%>" class="btn btn-primary checkRecipe">Megtekintés</a>
         <a href="#" class="btn btn-success">Szerkesztés</a>
         <a href="#" class="btn btn-danger">Törlés</a>
       </div>
