@@ -172,6 +172,7 @@ function updateIngredients(event) {
   })
   
   document.getElementById('closeUpdateOfIngredient').addEventListener('click', (event) => {
+    event.preventDefault();
     event.target.parentElement.style.display = "none"
   })
 
