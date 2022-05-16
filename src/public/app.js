@@ -23,9 +23,6 @@ recipesForm.onsubmit = async (event) => {
   const costValue = getValueFromRadio(cost);
   const difficultyValue = getValueFromRadio(difficulty);
 
-  let allergen = checkAllergen();
-  console.log(allergen)
-
   let body = {
     title: title.value,
     portion: portion.value,
@@ -36,7 +33,7 @@ recipesForm.onsubmit = async (event) => {
     totalTime: totalTime,
     ingredients: ingredients,
     comment: comment.value
-}
+  }
 
   try {
     const newRecipe = await fetch('/recipes', {
@@ -64,10 +61,11 @@ function getValueFromRadio(radio) {
   }
 }
 
+let countOfId = 0;
 addIngredients.onclick = (event) => {
-  console.log(ingredients);
   event.preventDefault();
   const newIngredients = {
+    id: countOfId++,
     ingredientName: ingredient.value,
     ingredientPortion: Number(ingredientPortion.value),
     ingredientType: ingredientType.value
@@ -87,14 +85,14 @@ function renderIngredients() {
   ingredients.forEach((ingredient, index) => {
     temp += `
     <tr>
-      <td>${index + 1}</td>
-      <td>${ingredient.ingredientName}</td>
-      <td>${ingredient.ingredientPortion}/g</td>
-      <td >${ingredient.ingredientType}</th>
-      <td>
-        <button class="deleteBtn btn-danger btn" data-id="${index}">Törlés</button>
-        <button class="editBtn btn-info btn" data-id="${index}">Szerkeszt</button>
-      </td>
+    <td>${index + 1}</td>
+    <td>${ingredient.ingredientName}</td>
+    <td>${ingredient.ingredientPortion}/g</td>
+    <td >${ingredient.ingredientType}</th>
+    <td>
+    <button class="deleteBtn btn-danger btn" data-id="${index}">Törlés</button>
+    <button class="editBtn btn-info btn" data-id="${index}">Szerkeszt</button>
+    </td>
     </tr>
     `
   })
@@ -102,6 +100,9 @@ function renderIngredients() {
   document.getElementById('ingredientsTemplate').innerHTML = temp;
   document.querySelectorAll('.deleteBtn').forEach((btn) => {
     btn.addEventListener('click', deleteIngredients)
+  })
+  document.querySelectorAll('.editBtn').forEach((btn) => {
+    btn.addEventListener('click', updateIngredients)
   })
 }
 
@@ -112,10 +113,64 @@ function deleteIngredients(event) {
   renderIngredients()
 }
 
-function checkAllergen() {
-  for(let ingredient of ingredients ) {
-    if(ingredient.ingredientType === 'Tejtermék') {
-      return 'Laktózos'
+function updateIngredients(event) {
+  event.preventDefault();
+  let id = Number(event.target.dataset.id);
+  let findIngredient = ingredients.find(ingredient => ingredient.id === id);
+
+  let temp = `
+    <div class="card" id="updateIngredeints-card"style="width: 18rem;">
+      
+        <input type="text" id="updateIngredient" name="updateIngredient" value="${findIngredient.ingredientName}">
+        <input type="number" id="updateIngredientPortion" value="${findIngredient.ingredientPortion}" name="updateIngredientPortion"><span>/g</span>
+        <select name="updateIngredientType" id="updateIngredientType">
+          <option value="Hús">Hús</option>
+          <option value="Ital">Ital</option>
+          <option value="Tejtermék">Tejtermék</option>
+          <option value="Gyümölcs">Gyümölcs</option>
+          <option value="Zöldség">Zöldség</option>
+          <option value="Fúszer">Fúszer</option>
+          <option value="Egyéb">Egyéb</option>
+        </select>
+        <button id="sendUpdatedIngredient" data-id="${findIngredient.id}" class="btn btn-success">Szerkeszt</button>
+        <button id="closeUpdateOfIngredient" class="btn btn-warning">Kilép</button>
+
+    </div>
+  `
+
+  document.getElementById('editIngredientsCard').innerHTML = temp;
+
+  let updateIngredient = document.getElementById('updateIngredient');
+  let updateIngredientPortion = document.getElementById('updateIngredientPortion')
+  let updateIngredientType = document.getElementById('updateIngredientType')
+
+
+
+  document.getElementById('sendUpdatedIngredient').addEventListener(('click'), (event) => {
+    event.preventDefault();
+    let id = Number(event.target.dataset.id);
+
+    let newIngredientsForUpdate = {
+      id: id,
+      ingredientName: updateIngredient.value,
+      ingredientPortion: updateIngredientPortion.value,
+      ingredientType: updateIngredientType.value
     }
-  }
+
+    for (let index = 0; index < ingredients.length; index++) {
+      if (ingredients[index].id === id) {
+        ingredients[index] = newIngredientsForUpdate;
+      }
+    }
+
+    event.target.parentElement.style.display = "none"
+    renderIngredients();
+  })
+  
+  document.getElementById('closeUpdateOfIngredient').addEventListener('click', (event) => {
+    event.target.parentElement.style.display = "none"
+  })
+
+
 }
+
