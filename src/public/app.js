@@ -42,8 +42,7 @@ recipesForm.onsubmit = async (event) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body)
-    })
-    console.log(body);
+    });
   } catch (error) {
     console.log(error)
   }
@@ -60,13 +59,13 @@ function getValueFromRadio(radio) {
   }
 }
 
-let countOfId = 0;
+
 addIngredients.onclick = (event) => {
   event.preventDefault();
   if(ingredient.value  && Number(ingredientPortion.value)) {
     
     const newIngredients = { 
-      id: countOfId++,
+      id: uuidv4(),
       ingredientName: ingredient.value,
       ingredientPortion: Number(ingredientPortion.value),
       ingredientType: ingredientType.value
@@ -94,8 +93,8 @@ function renderIngredients() {
     <td>${ingredient.ingredientPortion}/g</td>
     <td >${ingredient.ingredientType}</th>
     <td>
-    <button class="deleteBtn btn-danger btn" data-id="${index}">Törlés</button>
-    <button class="editBtn btn-info btn" data-id="${index}">Szerkeszt</button>
+    <button class="deleteBtn btn-danger btn" data-id="${ingredient.id}">Törlés</button>
+    <button class="editBtn btn-info btn" data-id="${ingredient.id}">Szerkeszt</button>
     </td>
     </tr>
     `
@@ -119,8 +118,9 @@ function deleteIngredients(event) {
 
 function updateIngredients(event) {
   event.preventDefault();
-  let id = Number(event.target.dataset.id);
+  let id = event.target.dataset.id;
   let findIngredient = ingredients.find(ingredient => ingredient.id === id);
+
 
   let temp = `
     <div class="card" id="updateIngredeints-card"style="width: 18rem;">
@@ -137,7 +137,7 @@ function updateIngredients(event) {
           <option value="Egyéb">Egyéb</option>
         </select>
         <button id="sendUpdatedIngredient" data-id="${findIngredient.id}" class="btn btn-success">Szerkeszt</button>
-        <button id="closeUpdateOfIngredient" class="btn btn-warning">Kilép</button>
+        <button id="closeUpdateOfIngredient" data-id="${findIngredient.id}" class="btn btn-warning">Kilép</button>
 
     </div>
   `
@@ -152,7 +152,7 @@ function updateIngredients(event) {
 
   document.getElementById('sendUpdatedIngredient').addEventListener(('click'), (event) => {
     event.preventDefault();
-    let id = Number(event.target.dataset.id);
+    let id = event.target.dataset.id;
 
     let newIngredientsForUpdate = {
       id: id,
@@ -160,6 +160,8 @@ function updateIngredients(event) {
       ingredientPortion: updateIngredientPortion.value,
       ingredientType: updateIngredientType.value
     }
+
+  
 
     for (let index = 0; index < ingredients.length; index++) {
       if (ingredients[index].id === id) {
@@ -176,5 +178,12 @@ function updateIngredients(event) {
     event.target.parentElement.style.display = "none"
   })
 
-
+  
 }
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+

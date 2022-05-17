@@ -5,7 +5,6 @@ const Recipe = require('../models/addRecipe')
 router.get('/', async (req, res) => {
   let searchOptions = {};
   searchOptions.title = new RegExp(req.query.title, 'i');
-  console.log(searchOptions);
   const recipes = await Recipe.find(searchOptions);
   try {
     res.render('recipes/recipes.ejs', { recipes: recipes, searchOptions: req.query })
@@ -47,6 +46,17 @@ router.get('/recipe/:id', async (req, res) => {
     let recipe = await Recipe.findById(id)
     console.log(recipe)
     res.render('recipes/recipe.ejs', { recipe: recipe });
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.delete('/recipe', async (req,res) => {
+  let id = req.body.id;
+  try {
+    await Recipe.findByIdAndDelete(id)
+    const recipes = await Recipe.find({});
+    res.render('recipes/recipes', { recipes: recipes, searchOptions: '' });
   } catch (error) {
     console.error(error)
   }
