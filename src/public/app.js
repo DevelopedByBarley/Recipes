@@ -19,6 +19,7 @@ const ingredientType = document.getElementById('ingredientType');
 let ingredients = [];
 
 recipesForm.onsubmit = async (event) => {
+  event.preventDefault();
   const costValue = getValueFromRadio(cost);
   const difficultyValue = getValueFromRadio(difficulty);
 
@@ -43,8 +44,9 @@ recipesForm.onsubmit = async (event) => {
       },
       body: JSON.stringify(body)
     });
+    window.location.assign('/recipes')
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -62,20 +64,20 @@ function getValueFromRadio(radio) {
 
 addIngredients.onclick = (event) => {
   event.preventDefault();
-  if(ingredient.value  && Number(ingredientPortion.value)) {
-    
-    const newIngredients = { 
+  if (ingredient.value && Number(ingredientPortion.value)) {
+
+    const newIngredients = {
       id: uuidv4(),
       ingredientName: ingredient.value,
       ingredientPortion: Number(ingredientPortion.value),
       ingredientType: ingredientType.value
     }
-  
+
     ingredient.value = ''
     ingredientPortion.value = ''
-  
+
     ingredients.push(newIngredients)
-  
+
     renderIngredients();
   } else {
     alert('Mindkét mező kitöltése kötelező!')
@@ -161,7 +163,7 @@ function updateIngredients(event) {
       ingredientType: updateIngredientType.value
     }
 
-  
+
 
     for (let index = 0; index < ingredients.length; index++) {
       if (ingredients[index].id === id) {
@@ -172,17 +174,17 @@ function updateIngredients(event) {
     event.target.parentElement.style.display = "none"
     renderIngredients();
   })
-  
+
   document.getElementById('closeUpdateOfIngredient').addEventListener('click', (event) => {
     event.preventDefault();
     event.target.parentElement.style.display = "none"
   })
 
-  
+
 }
 
 function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
   );
 }

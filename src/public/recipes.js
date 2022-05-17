@@ -18,7 +18,6 @@ document.querySelectorAll('.deleteRecipe').forEach((btn) => {
       window.location.assign('/')
       console.log(error)
     }
-
   })
 })
 
