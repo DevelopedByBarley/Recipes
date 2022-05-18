@@ -4,8 +4,9 @@ const port = process.env.PORT;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose')
-var expressLayouts = require('express-ejs-layouts');
+
 
 
 const indexRouter = require('./routes/index') 
@@ -21,14 +22,15 @@ app.use(express.static(__dirname + '/public'));
 app.use(expressLayouts);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/', indexRouter);
-app.use('/new', recipesRouter)
+app.use('/recipes', recipesRouter)
 
 
 
 //Database
 
-mongoose.connect(`mongodb://localhost/${process.env.SERVER_NAME}`)
+mongoose.connect(`${process.env.DATABASE_URL}`)
 const db = mongoose.connection
 db.on('error', error => console.log(error))
 db.once('open', () => console.log(`Database is connected on port ${port}` ))

@@ -1,0 +1,38 @@
+<form action="/recipes" method="GET">
+  <h1>Keresés</h1>
+  <input type="text" name="title" value="<%=searchOptions.title%>">
+  <button type="submit" id="searchBox" class="btn btn-dark">Keresés</button>
+</form>
+<div id="cards-container">
+  <% recipes.forEach(function(recipe) { %>
+    <div class="card">
+      <img width="100%" src="/uploads/images/pexels-ella-olsson-1640777.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= recipe.title %>
+        </h5>
+        <p class="card-text">
+          <span class="card-info">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <%= recipe.cost %>
+          </span>
+          <span class="card-info">
+            <i class="fa-solid fa-dumbbell"></i>
+            <%= recipe.difficulty %>
+          </span>
+          <span class="card-info">
+            <i class="fa-solid fa-clock"></i>
+            <%= recipe.totalTime %> perc
+          </span>
+        </p>
+        <p id="comment">
+          <%= recipe.comment %>
+        </p>
+        <a href="/recipes/recipe/<%=recipe._id%>" class="btn btn-primary checkRecipe">Megtekintés</a>
+        <button class="btn btn-success editRecipe" data-id="<%=recipe._id%>">Szerkesztés</button>
+        <button class="btn btn-danger deleteRecipe" data-id="<%=recipe._id%>">Törlés</button>
+      </div>
+    </div>
+
+    <% }); %>
+</div>

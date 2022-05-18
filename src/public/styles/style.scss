@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+
+#container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+
+
+// Card Styles
+#inner-container {
+
+  #cards-container {
+    display: grid;
+
+    .card {
+      width: 100%;
+    }
+
+
+    @media(min-width: 768px) {
+      .card {
+        width: 100%;
+      }
+    }
+  }
+
+  @media(min-width: 768px) {
+    #cards-container {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      grid-gap: 2%;
+    }
+  }
+}
+

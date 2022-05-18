@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     requied: true
   },
-  difficult: {
+  difficulty: {
     type: String,
     required: true
   },
@@ -21,17 +22,21 @@ const recipeSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  duration: {
+  cookingTime: {
     type: Number,
     required: true
   },
-  ingredient: {
-    type: String,
+  totalTime: {
+    type: Number,
+    required: true
+  },
+  ingredients: {
+    type: Array,
     required: true
   },
   steps: {
     type: String,
-    required: true,
+    required: false,
   },
   coverImageName: {
     type: String,
@@ -46,6 +51,7 @@ const recipeSchema = new mongoose.Schema({
     default: () => Date.now()
   }
 })
+
 
 
 module.exports = mongoose.model('Recipes', recipeSchema);
