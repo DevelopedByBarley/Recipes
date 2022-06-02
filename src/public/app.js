@@ -19,7 +19,6 @@ const ingredientType = document.getElementById('ingredientType');
 let ingredients = [];
 
 recipesForm.onsubmit = async (event) => {
-  event.preventDefault();
   const costValue = getValueFromRadio(cost);
   const difficultyValue = getValueFromRadio(difficulty);
 
@@ -122,7 +121,6 @@ function updateIngredients(event) {
   event.preventDefault();
   let id = event.target.dataset.id;
   let findIngredient = ingredients.find(ingredient => ingredient.id === id);
-
 
   let temp = `
     <div class="card" id="updateIngredeints-card"style="width: 18rem;">

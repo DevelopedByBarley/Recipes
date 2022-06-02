@@ -1,5 +1,5 @@
 <h1>Recept hozzáadása: </h1>
-<form id="recipesForm">
+<form id="recipesForm" action="/recipes/single" method="POST" enctype="multipart/form-data">
   <div class="form-group" id="titleAndPortion">
     <label for="title">Recept név:</label><br>
     <input type="text" id="title" name="title"><br>
@@ -95,7 +95,7 @@
 
   <br><br><hr>
 
-  <div class="form-group" id="ingredients"
+  <div class="form-group" id="ingredients">
     <h3>Adj hozzávalókat <span><button id="addIngredients">+</button></span></h3>
 
     <div class="ingredients-card">

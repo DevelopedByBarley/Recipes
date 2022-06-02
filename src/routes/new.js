@@ -1,20 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/addRecipe')
+const Image = require('../models/upload')
+const path = require('path');
+const multer = require('multer');
+
+
+
+const storage = multer.diskStorage({
+  destination: './src/public/uploads/images',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  }
+})
+
+const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
   let searchOptions = {};
   searchOptions.title = new RegExp(req.query.title, 'i');
   const recipes = await Recipe.find(searchOptions);
+  const images = await Image.find({});
   try {
-    res.render('recipes/recipes.ejs', { recipes: recipes, searchOptions: req.query })
+    res.render('recipes/recipes.ejs', { recipes: recipes, searchOptions: req.query, images: images })
   } catch (error) {
     console.error(error)
   }
 })
 
 router.get('/new', (req, res) => {
-  res.render('recipes/new.ejs')
+
+  res.render('recipes/new.ejs', {})
 })
 
 router.post('/', async (req, res) => {
@@ -39,6 +55,14 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.post('/single', upload.single('cover'), async (req, res) => {
+  console.log(req.file.filename)
+  const images = await new Image({
+    title: req.file.filename
+  })
+  await images.save();
+})
+
 
 router.get('/recipe/:id', async (req, res) => {
   let id = req.params.id;
@@ -51,7 +75,7 @@ router.get('/recipe/:id', async (req, res) => {
   }
 })
 
-router.delete('/recipe', async (req,res) => {
+router.delete('/recipe', async (req, res) => {
   let id = req.body.id;
   try {
     await Recipe.findByIdAndDelete(id)
